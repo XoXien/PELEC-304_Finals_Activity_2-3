@@ -1,0 +1,124 @@
+ONLINE ENROLLMENT SYSTEM - STUDENT PROFILE VIEW v1.02
+
+FEATURES
+- Student directory, profiles, and Add student form work without signing in.
+- Collapsible desktop sidebar remembers your preference; mobile uses a drawer.
+- Add student validates required details and duplicate student IDs, then opens
+  the saved profile with a success notification.
+- Searchable student directory with class and enrollment status filters.
+- Click any student row, name, or View profile link to see that student's record.
+- Personal, contact, family/guardian, educational, and enrollment information.
+- Class list links, related classmates, profile tabs, and printable profiles.
+- Add students from the directory button or sidebar.
+- Edit or delete records and manage classes through Django administration.
+- Responsive desktop, tablet, and phone layouts; CSS and JavaScript in static/.
+- Twelve FICTIONAL student profiles in three classes are included in db.sqlite3.
+
+RUN ON YOUR COMPUTER
+Use Python 3.10 or newer. Open a terminal in the folder containing manage.py.
+
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+
+Open http://127.0.0.1:8000/ to see the student directory immediately.
+No account is needed to view profiles or add a student.
+Click Add student, complete the form, and choose Save student.
+Click the menu button in the top bar to collapse or expand the sidebar.
+
+Optional record management: run python manage.py createsuperuser once and use
+http://127.0.0.1:8000/admin/ to edit records or manage classes. This is not needed
+to browse the directory or add students. Existing accounts and student records remain in db.sqlite3.
+You may use a virtual environment to keep project packages separate.
+
+If starting with a NEW, empty database, add the examples using:
+python manage.py seed_demo
+This command adds missing examples without changing existing records.
+
+DEPLOY ON PYTHONANYWHERE
+These instructions use USERNAME as a placeholder. Replace it with your actual
+PythonAnywhere username wherever it appears. Keep a copy of an existing site
+and its database before changing that site's Web configuration.
+
+1. Sign in to your PythonAnywhere account. On the Files tab, upload
+   Enrollment_Profile_Django_v1.02.zip into /home/USERNAME/.
+
+2. Open Consoles > Bash and run:
+
+cd ~
+unzip Enrollment_Profile_Django_v1.02.zip
+cd ~/Enrollment_Profile_Django
+python3.10 -m venv ~/.virtualenvs/enrollment-venv
+source ~/.virtualenvs/enrollment-venv/bin/activate
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py collectstatic --noinput
+
+   Python 3.10 is an example. If you use another supported version, choose that
+   SAME Python version when creating the Web app below. Django 5.2 needs 3.10+.
+   Do not run seed_demo unless you want to add missing example student records.
+
+3. Web > Add a new web app > Manual configuration > choose the SAME Python
+   version used to create enrollment-venv. Use Manual configuration for this
+   existing project rather than creating a new Django project.
+
+4. On the Web tab set:
+
+   Source code:       /home/USERNAME/Enrollment_Profile_Django
+   Working directory:/home/USERNAME/Enrollment_Profile_Django
+   Virtualenv:        /home/USERNAME/.virtualenvs/enrollment-venv
+
+5. Click the WSGI configuration file link on the Web tab. Replace its contents
+   with the following code (replace USERNAME with your actual username):
+
+import os
+import sys
+
+project_path = '/home/USERNAME/Enrollment_Profile_Django'
+if project_path not in sys.path:
+    sys.path.insert(0, project_path)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'enrollment_system.settings'
+os.environ['DJANGO_DEBUG'] = 'False'
+os.environ['DJANGO_ALLOWED_HOSTS'] = 'USERNAME.pythonanywhere.com'
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+   Edit the WSGI file linked on the Web tab, not the project's own wsgi.py.
+   For an EU account, use the exact hostname shown on your Web tab instead.
+   A private .secret_key file is automatically created in the project folder.
+   Keep that generated file private and keep it when reloading or updating.
+   If you set DJANGO_SECRET_KEY instead, use the SAME stable value for all
+   processes that run this project. Never generate a new key on every reload.
+
+6. Under Static files on the Web tab add:
+
+   URL:       /static/
+   Directory: /home/USERNAME/Enrollment_Profile_Django/staticfiles
+
+   Do not point /static/ at the whole project directory.
+   This activity uses initials for student avatars, so no uploaded media
+   mapping is needed.
+
+7. Enable Force HTTPS on the Web tab, save changes, and click Reload.
+   Visit the website address shown on your Web tab to open the student directory.
+   Check that styles load and that clicking students opens different profiles.
+   After editing CSS or JavaScript, run collectstatic --noinput again and reload.
+
+SUBMISSION FORMAT
+Name: [Your full name]
+Year/Section: [Your year and section]
+PythonAnywhere Link: [Your actual live website URL from the Web tab]
+
+NOTES
+- Student profiles and the class directory are accessible without an account.
+- The custom sign-in page, sign-out button, and administrator profile header
+  have been removed. Django administration remains available for editing records.
+- Missing optional information appears as a dash in a profile.
+- Demo student names, guardian details, schools, and addresses are fictional.
+- The database is not reset on startup. Keep your database for future updates.
+
+OFFICIAL DEPLOYMENT REFERENCES
+https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/
+https://help.pythonanywhere.com/pages/DjangoStaticFiles/
