@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#142d42">
+    <title>{% block title %}{{ page_title }}{% endblock %} · Enrollment</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'students/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'students/style.css' %}">
+    <link rel="stylesheet" href="{% static 'students/student-form.css' %}">
+    <script src="{% static 'students/app.js' %}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <a class="brand" href="{% url 'students:list' %}" aria-label="Enrollment home" title="Enrollment home"><span class="brand-mark">{% include 'includes/icon.html' with name='cap' %}</span><span class="brand-text">enrollment<span class="brand-subtitle">STUDENT INFORMATION</span></span></a>
+        <div class="sidebar-label">WORKSPACE</div>
+        <nav class="side-nav">
+            <a class="nav-link{% if request.resolver_match.url_name != 'add' %} active{% endif %}" href="{% url 'students:list' %}" aria-label="Student directory" title="Student directory"{% if request.resolver_match.url_name == 'list' %} aria-current="page"{% endif %}>{% include 'includes/icon.html' with name='users' %}<span class="nav-text">Student directory</span><span class="nav-dot"></span></a>
+            <a class="nav-link{% if request.resolver_match.url_name == 'add' %} active{% endif %}" href="{% url 'students:add' %}" aria-label="Add student" title="Add student"{% if request.resolver_match.url_name == 'add' %} aria-current="page"{% endif %}>{% include 'includes/icon.html' with name='plus' %}<span class="nav-text">Add student</span>{% if request.resolver_match.url_name == 'add' %}<span class="nav-dot"></span>{% endif %}</a>
+            {% if perms.students.view_student or perms.students.change_student %}<a class="nav-link" href="{% url 'admin:students_student_changelist' %}" aria-label="Manage records" title="Manage records">{% include 'includes/icon.html' with name='folder' %}<span class="nav-text">Manage records</span>{% include 'includes/icon.html' with name='external' %}</a>{% endif %}
+            {% if perms.students.view_classroom or perms.students.change_classroom %}<a class="nav-link" href="{% url 'admin:students_classroom_changelist' %}" aria-label="Manage classes" title="Manage classes">{% include 'includes/icon.html' with name='grid' %}<span class="nav-text">Manage classes</span>{% include 'includes/icon.html' with name='external' %}</a>{% endif %}
+        </nav>
+        <div class="sidebar-note"><span class="note-icon">{% include 'includes/icon.html' with name='book' %}</span><strong>A place for every student.</strong><p>Keep their information organized and within reach.</p><span class="note-line"></span></div>
+        <div class="sidebar-footer"><span class="online-dot"></span> Student information workspace</div>
+    </aside>
+    <button class="nav-scrim" data-nav-close aria-label="Close navigation" hidden></button>
+    <div class="main-shell">
+        <header class="topbar">
+            <div class="topbar-left"><button class="icon-button menu-button" type="button" data-nav-toggle aria-expanded="true" aria-controls="sidebar" aria-label="Collapse sidebar" title="Toggle sidebar">{% include 'includes/icon.html' with name='menu' %}</button><span class="topbar-label">Online Enrollment System</span><span class="topbar-separator"></span><span class="portal-label">Student profiles</span></div>
+        </header>
+        <main id="main-content" class="page-content">
+            {% if messages %}<div class="page-notifications" aria-live="polite">{% for message in messages %}<div class="notice notice-{{ message.tags }}" role="status"><span>{% include 'includes/icon.html' with name='check-circle' %}{{ message }}</span><button type="button" class="icon-button" data-notice-dismiss aria-label="Dismiss notification">{% include 'includes/icon.html' with name='x' %}</button></div>{% endfor %}</div>{% endif %}
+            {% block content %}{% endblock %}
+            <footer class="page-footer"><span>Enrollment · Student Information System</span><span>Designed around your students.</span></footer>
+        </main>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+/* Student creation and its validation states. */
+.form-heading-icon{width:52px;height:52px;border-radius:15px;background:#e4f1eb;color:#5f9a80;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.form-heading-icon .icon{width:26px;height:26px}
+.student-form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.student-form-intro{padding:21px 28px;border-bottom:1px solid var(--line);color:#82938f;background:#fbfdfc;font-size:12px}
+.student-form-intro>span{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.student-form-intro .icon{width:16px;height:16px;color:#76a28d}
+.student-form-intro strong{color:#44866b}
+.student-form-section{border:0;border-bottom:1px solid var(--line);padding:24px 28px 28px;margin:0;min-width:0}
+.student-form-section legend{float:left;display:flex;align-items:center;gap:11px;padding:0;margin:0 0 8px;width:100%;font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.2px}
+.form-section-number{width:29px;height:29px;background:#edf5f1;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#659780;font-size:10px;font-weight:600}
+.form-section-description{clear:both;font-size:11px;line-height:1.8;color:#95a1ab;margin-bottom:24px;padding-left:40px}
+.student-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.student-field{min-width:0}
+.student-field-wide{grid-column:1/-1}
+.student-field label{display:block;color:#697e8d;font-weight:600;font-size:12px;margin-bottom:9px}
+.required-star{color:#4a8c71;margin-left:4px}
+.student-input{display:block;width:100%;min-width:0;max-width:100%;min-height:44px;border:1px solid #dfe7ec;border-radius:8px;padding:11px 13px;color:#3f586b;background:#fcfdfd;font:inherit;font-size:12px;line-height:1.5;transition:border-color .15s,box-shadow .15s}
+.student-input:focus{border-color:#77b09b;box-shadow:0 0 0 3px #78b09712}
+.student-input::placeholder{color:#a4afb8;font-size:11px}
+select.student-input{cursor:pointer}
+textarea.student-input{resize:vertical;min-height:85px}
+.has-error .student-input{border-color:#cf8c7b;background:#fffaf8}
+.student-field-errors{list-style:none;font-size:11px;line-height:1.7;color:#b66450;margin:7px 0 0;padding:0}
+.student-field-help{font-size:11px;line-height:1.7;color:#95a2ae;margin-top:7px}
+.student-form-alert{margin:22px 28px 0;padding:15px 18px;background:#fff5f0;border:1px solid #f1d7cc;border-radius:9px;color:#a75d49;font-size:12px;line-height:1.8}
+.student-form-alert p{font-size:11px;margin-top:2px}
+.student-form-actions{padding:23px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;background:#fbfcfd}
+.student-form-actions>p{color:#97a3ad;font-size:11px}
+.student-form-actions>div{display:flex;gap:10px}
+.page-notifications{margin-bottom:24px}
+.notice{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 15px 12px 19px;border:1px solid #d7e9de;border-radius:10px;background:#edf7f0;color:#4c896d;font-size:12px;box-shadow:var(--shadow)}
+.notice>span{display:flex;align-items:center;gap:10px}
+.notice>span .icon{width:18px;height:18px}
+.notice .icon-button{width:29px;height:29px;color:#78a28b;flex-shrink:0}
+.notice .icon-button .icon{width:14px;height:14px}
+.notice .icon-button:hover{background:#dfefe4}
+/* The same toggle becomes a compact desktop rail or a mobile drawer. */
+@media screen{
+    .menu-button{display:flex}
+    .sidebar{transition:width .2s,transform .2s,visibility .2s}
+    .main-shell{transition:margin-left .2s,width .2s}
+}
+@media screen and (min-width:961px){
+    .sidebar-collapsed .sidebar{width:76px;padding-left:14px;padding-right:14px}
+    .sidebar-collapsed .main-shell{margin-left:76px;width:calc(100% - 76px)}
+    .sidebar-collapsed .brand{justify-content:center}
+    .sidebar-collapsed .brand-text,.sidebar-collapsed .sidebar-note,.sidebar-collapsed .sidebar-footer{display:none}
+    .sidebar-collapsed .sidebar-label{visibility:hidden;padding:0}
+    .sidebar-collapsed .nav-link{justify-content:center;padding:13px}
+    .sidebar-collapsed .nav-link>span,.sidebar-collapsed .nav-link>.icon:last-child:not(:first-child){display:none}
+}
+@media(max-width:740px){
+    .student-form-intro{padding:18px 22px;font-size:11px}
+    .student-form-section{padding:22px}
+    .student-form-grid{gap:21px 18px}
+    .student-form-actions{padding:20px 22px;flex-wrap:wrap}
+    .student-form-actions>div{margin-left:auto}
+    .student-form-alert{margin-left:22px;margin-right:22px}
+}
+@media(max-width:540px){
+    .form-heading-icon{display:none}
+    .student-form-intro{padding:17px 18px;line-height:1.8;font-size:10px}
+    .student-form-intro>span{display:block}
+    .student-form-intro .icon{margin-right:5px;vertical-align:-3px;width:13px;height:13px}
+    .student-form-section{padding:21px 18px 24px}
+    .student-form-section legend{font-size:14px;gap:9px}
+    .form-section-description{font-size:10px;padding-left:0;line-height:1.9;margin-bottom:20px}
+    .student-form-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+    .student-field label{font-size:11px}
+    .student-input{font-size:16px;min-height:45px}
+    .student-input::placeholder{font-size:12px}
+    .student-form-actions{padding:20px 18px;gap:17px}
+    .student-form-actions>p{font-size:10px}
+    .student-form-actions>div{width:100%}
+    .student-form-actions .button{flex:1}
+    .student-form-alert{margin-left:18px;margin-right:18px;font-size:11px}
+    .notice{padding:11px 12px 11px 15px;gap:10px;font-size:11px}
+}
